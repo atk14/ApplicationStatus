@@ -16,6 +16,13 @@ Installation
 Configuration
 -------------
 
-    // file: config/settings.php
+Set up IP-based authentication or HTTP basic authentication. It's even good to set up both.
 
+    // file: config/settings.php
+    
+    // IP-based authentication
     define("APPLICATION_STATUS_ALLOW_FROM","84.42.130.122,84.42.130.123,84.42.121.123/24");
+
+    // HTTP basic authentication
+    define("APPLICATION_STATUS_AUTH_USERNAME","john");
+    define("APPLICATION_STATUS_AUTH_PASSWORD","the_C4ctuss!");
