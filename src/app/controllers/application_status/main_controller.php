@@ -1,8 +1,6 @@
 <?php
 class MainController extends ApplicationController {
 
-	var $allow_from = ["84.42.151.170"];
-
 	function index(){
 		$this->page_title = "Application Status";
 
@@ -26,12 +24,6 @@ class MainController extends ApplicationController {
 		$this->tpl_data["end_of_exception_file"] = $this->_read_end_of($exception_file);
 		$this->tpl_data["error_file_exists"] = $error_file_exists;
 		$this->tpl_data["end_of_error_file"] = $this->_read_end_of($error_file);
-	}
-
-	function _before_filter(){
-		if(PRODUCTION && $this->allow_from && !in_array($this->request->getRemoteAddr(),$this->allow_from)){
-			return $this->_execute_action("error403");
-		}
 	}
 
 	function _get_running_queries(){
