@@ -10,7 +10,7 @@ class ApplicationController extends Atk14Controller {
 	}
 
 	function _application_before_filter(){
-		if(strlen(APPLICATION_STATUS_ALLOW_FROM.APPLICATION_STATUS_AUTH_USERNAME.APPLICATION_STATUS_AUTH_PASSWORD)==0 || 1){
+		if(strlen(APPLICATION_STATUS_ALLOW_FROM.APPLICATION_STATUS_AUTH_USERNAME.APPLICATION_STATUS_AUTH_PASSWORD)==0){
 			return $this->_execute_action("confinguration_missing");
 		}
 
