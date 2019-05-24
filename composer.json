@@ -1,0 +1,23 @@
+{
+        "name": "atk14/application-status",
+        "type": "library",
+        "description": "The application status monitor",
+        "keywords": ["atk14", "monitoring"],
+        "homepage": "https://github.com/atk14/ApplicationStatus",
+        "license": ["MIT"],
+        "authors": [
+                {
+                        "name": "ATK14 Development Team",
+                        "homepage": "https://github.com/orgs/atk14/people"
+                }
+        ],
+        "require": {
+                "php": ">=5.3.0",
+                "atk14/ip-matcher": "*"
+        },
+        "require-dev": {
+        },
+        "autoload": {
+                "classmap": ["src/lib"]
+        }
+}
