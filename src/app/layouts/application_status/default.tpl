@@ -12,8 +12,13 @@
 	</head>
 	<body>
 	
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<div class="container">
+				<span class="navbar-text">{a action="main/index"}Application Status [ {"ATK14_APPLICATION_NAME"|dump_constant} ]{/a}</span>
+			</div>
+		</nav>
 		<div class="container">
-		{placeholder}
+			{placeholder}
 		</div>
 
 		<!-- Optional JavaScript -->
