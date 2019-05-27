@@ -6,10 +6,6 @@
 	{$server_load.0}, {$server_load.1}, {$server_load.2}
 </p>
 
-<h3>Running SQL Queries</h3>
-
-<p>{a action="running_sql_queries/index"}Show running SQL queries{/a}</p>
-
 <h3>Exception log file</h3>
 
 {if !$exception_file_exists}

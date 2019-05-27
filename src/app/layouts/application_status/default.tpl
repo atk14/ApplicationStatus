@@ -14,7 +14,20 @@
 	
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 			<div class="container">
-				<span class="navbar-text">{a action="main/index"}Application Status [ {"ATK14_APPLICATION_NAME"|dump_constant} ]{/a}</span>
+				<a class="navbar-brand" href="{link_to action="main/index"}">Application Status</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav">
+						<li class="nav-item{if $controller=="running_sql_queries"} active{/if}">
+							<a class="nav-link" href="{link_to action="running_sql_queries/index"}">Running SQL queries</a>
+						</li>
+						<li class="nav-item{if $controller=="exception_reports"} active{/if}">
+							<a class="nav-link" href="{link_to action="exception_reports/index"}">Exception reports</a>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</nav>
 		<div class="container">
