@@ -8,22 +8,7 @@
 
 <h3>Running SQL Queries</h3>
 
-<p>Total queries: {$running_queries|count}</p>
-
-<h4>Top Queries</h4>
-<ul class="list-unstyled">
-	{foreach $top_running_queries as $item}
-		<li>
-			<ul>
-			<li>started: {$item.query_start}</li>
-			<li>duration: {$item.duration}</li>
-			<li>pid: {$item.pid}</li>
-			</ul>
-			<hr>
-			<pre><code>{!$item.query|replace:"\t":"  "|h}</code><pre>
-		</li>
-	{/foreach}
-</ul>
+<p>{a action="running_sql_queries/index"}Show running SQL queries{/a}</p>
 
 <h3>Exception log file</h3>
 
