@@ -1,7 +1,7 @@
 Application Status
 ==================
 
-The application status monitor.
+The ATK14 application status monitor.
 
 Application Status provides:
 
