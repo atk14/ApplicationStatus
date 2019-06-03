@@ -36,11 +36,6 @@ class RunningSqlQueriesController extends ApplicationController {
 			WHERE query != '<IDLE>' AND query!='<insufficient privilege>' AND query NOT ILIKE '%pg_stat_activity%'
 			ORDER BY query_start
 		");
-		$rows = $this->dbmole->selectRows("
-			SELECT pid, query_start, AGE(CLOCK_TIMESTAMP(), query_start) AS duration, query
-			FROM pg_stat_activity
-			ORDER BY query_start
-		");
 		foreach($rows as $k => $row){
 			unset($row["duration"]);
 			$rows[$k]["token"] = $row["pid"].".".md5(serialize($row));
