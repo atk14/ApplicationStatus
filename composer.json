@@ -1,7 +1,7 @@
 {
         "name": "atk14/application-status",
         "type": "library",
-        "description": "The application status monitor",
+        "description": "The ATK14 application status monitor",
         "keywords": ["atk14", "monitoring"],
         "homepage": "https://github.com/atk14/ApplicationStatus",
         "license": ["MIT"],

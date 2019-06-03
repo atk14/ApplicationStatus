@@ -31,6 +31,7 @@ class ApplicationController extends Atk14Controller {
 	}
 
 	function confinguration_missing(){
+    $this->response->setStatusCode("403");
 		$this->page_title = "Configuration missing";
 		$this->template_name = "application/confinguration_missing";
 	}

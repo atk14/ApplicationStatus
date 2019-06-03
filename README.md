@@ -1,7 +1,14 @@
 Application Status
 ==================
 
-The application status monitor.
+The ATK14 application status monitor.
+
+Application Status provides:
+
+- system load information
+- access to error logs
+- list of currently running SQL queries ordered by duration
+- access to exception reports produced by [Tracy](https://packagist.org/packages/tracy/tracy)
 
 Installation
 ------------
@@ -13,10 +20,14 @@ Installation
     ln -s ../../vendor/atk14/application-status/src/app/views/application_status/ app/views/application_status
     ln -s ../../vendor/atk14/application-status/src/app/layouts/application_status/ app/layouts/application_status
 
+After deployment to the production, the Application Status will be accessible on address:
+
+    http://your.project.com/application_status/
+
 Configuration
 -------------
 
-Set up IP-based authentication or HTTP basic authentication. It's even good to set up both.
+Set up IP-based authentication or HTTP basic authentication. It's even ok to set up both.
 
     // file: config/settings.php
     
