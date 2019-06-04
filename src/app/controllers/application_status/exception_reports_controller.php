@@ -8,17 +8,40 @@ class ExceptionReportsController extends ApplicationController {
 	}
 
 	function detail(){
-		$name = $this->params->getString("name");
-		$reports = $this->_read_reports();
-
-		if(!isset($reports[$name])){
-			return $this->_execute_action("error404");
-		}
-
-		$report = $reports[$name];
+		$report = $this->report;
 		$this->render_template = false;
 		$this->response->setContenTtype("text/html");
 		$this->response->buffer->addFile($report["filename"]);
+	}
+
+	function destroy(){
+		if(!$this->request->post()){
+			return $this->_execute_action("error404");
+		}
+
+		$report = $this->report;
+		Files::Unlink($report["filename"]);
+		
+		if($this->request->xhr()){
+			$this->template_name = "application/destroy";
+			return;
+		}
+
+		$this->flash->success("Report has been deleted");
+		$this->_redirect_to("index");
+	}
+
+	function _before_filter(){
+		if(in_array($this->action,["detail","destroy"])){
+			$name = $this->params->getString("name");
+			$reports = $this->_read_reports();
+
+			if(!isset($reports[$name])){
+				return $this->_execute_action("error404");
+			}
+
+			$this->report = $reports[$name];
+		}
 	}
 
 	function _read_reports(){
@@ -42,6 +65,5 @@ class ExceptionReportsController extends ApplicationController {
 
 		return $reports;
 	}
-
 
 }

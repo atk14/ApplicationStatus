@@ -9,6 +9,7 @@
 			<th>Name</th>
 			<th>Date</th>
 			<th>Size</th>
+			<th></th>
 		</tr>
 	</thead>
 
@@ -18,6 +19,7 @@
 				<td>{a action=detail name=$report.name}{$report.name}{/a}</td>
 				<td>{$report.date|format_datetime}</td>
 				<td>{$report.size}</td>
+				<td>{a_remote action=destroy _method=post name=$report.name _confirm="Are you sure you want to delete this report?" _class="btn btn-danger btn-sm" _title="Delete report"}<strong>&times;</strong>{/a_remote}</td>
 			</tr>
 		{/foreach}
 	</tbody>
