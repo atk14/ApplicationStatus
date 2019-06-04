@@ -53,8 +53,12 @@ class ExceptionReportsController extends ApplicationController {
 		foreach($files as $filename){
 			$name = preg_replace('/^.*\//','',$filename); // "/home/john/apps/foobar/log/exception--2018-05-04--16-48--ac61a358d6.html" -> "exception--2018-05-04--16-48--ac61a358d6.html"
 			$size = filesize($filename);
+			$content = Files::GetFileContent($filename);
+			preg_match('/^.*?<title>(.*?)<\/title>/is',$content,$matches);
+			$title = isset($matches[1]) ? $this->_decode_html_entitites($matches[1]) : $name;
 			$reports[$name] = [
 				"name" => $name,
+				"title" => $title,
 				"filename" => $filename,
 				"date" => date("Y-m-d H:i:s",filectime($filename)),
 				"size" => $size,
@@ -64,6 +68,12 @@ class ExceptionReportsController extends ApplicationController {
 		$reports = array_reverse($reports);
 
 		return $reports;
+	}
+
+	function _decode_html_entitites($text){
+		$text = html_entity_decode($text);
+		$text = preg_replace_callback('/\&#(\d{3});/',function($matches){ return chr($matches[1]); },$text); // "&#039;" -> "''
+		return $text;
 	}
 
 }
