@@ -21,6 +21,9 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarNav">
 					<ul class="navbar-nav">
+						<li class="nav-item">
+							<a class="nav-link" href="{link_to action="main/phpinfo"}">PHP Info</a>
+						</li>
 						<li class="nav-item{if $controller=="running_sql_queries"} active{/if}">
 							<a class="nav-link" href="{link_to action="running_sql_queries/index"}">Running SQL queries</a>
 						</li>

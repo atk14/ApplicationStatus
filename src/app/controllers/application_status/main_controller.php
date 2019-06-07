@@ -22,6 +22,14 @@ class MainController extends ApplicationController {
 		$this->tpl_data["end_of_error_file"] = $this->_read_end_of($error_file);
 	}
 
+	function phpinfo(){
+		ob_start();
+		phpinfo();
+		$content = ob_get_clean();
+		$this->render_template = false;
+		$this->response->write($content);
+	}
+
 	function _read_end_of($file,$chunk_size = 2048){
 		if(!file_exists($file)){
 			return null;
