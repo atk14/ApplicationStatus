@@ -37,3 +37,10 @@ Set up IP-based authentication or HTTP basic authentication. It's even ok to set
     // HTTP basic authentication
     define("APPLICATION_STATUS_AUTH_USERNAME","john");
     define("APPLICATION_STATUS_AUTH_PASSWORD","the_C4ctuss!");
+
+By default, there is automatic redirection to ssl in production environment.
+It can be suppressed by setting constant APPLICATION_STATUS_REDIRECT_TO_SSL_AUTOMATICALLY to false:
+
+    define("APPLICATION_STATUS_REDIRECT_TO_SSL_AUTOMATICALLY",false);
+
+[//]: # ( vim: set ts=2 et: )
