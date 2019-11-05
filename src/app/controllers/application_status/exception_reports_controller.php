@@ -23,7 +23,6 @@ class ExceptionReportsController extends ApplicationController {
 		Files::Unlink($report["filename"]);
 		
 		if($this->request->xhr()){
-			$this->template_name = "application/destroy";
 			return;
 		}
 
@@ -53,12 +52,9 @@ class ExceptionReportsController extends ApplicationController {
 		foreach($files as $filename){
 			$name = preg_replace('/^.*\//','',$filename); // "/home/john/apps/foobar/log/exception--2018-05-04--16-48--ac61a358d6.html" -> "exception--2018-05-04--16-48--ac61a358d6.html"
 			$size = filesize($filename);
-			$content = Files::GetFileContent($filename);
-			preg_match('/^.*?<title>(.*?)<\/title>/is',$content,$matches);
-			$title = isset($matches[1]) ? $this->_decode_html_entitites($matches[1]) : $name;
 			$reports[$name] = [
 				"name" => $name,
-				"title" => $title,
+				"title" => $name,
 				"filename" => $filename,
 				"date" => date("Y-m-d H:i:s",filectime($filename)),
 				"size" => $size,
@@ -67,7 +63,23 @@ class ExceptionReportsController extends ApplicationController {
 
 		$reports = array_reverse($reports);
 
+		// Read title from file for a limited number of reports
+		$limit = 30;
+		$counter = 0;
+		foreach($reports as $name => &$report){
+			$report["title"] = $this->_read_title_from_report($report["filename"],$report["name"]);
+			$counter++;
+			if($counter>=$limit){ break; }
+		}
+
 		return $reports;
+	}
+
+	function _read_title_from_report($filename,$name){
+		$content = Files::GetFileContent($filename);
+		preg_match('/^.*?<title>(.*?)<\/title>/is',$content,$matches);
+		$title = isset($matches[1]) ? $this->_decode_html_entitites($matches[1]) : $name;
+		return $title;
 	}
 
 	function _decode_html_entitites($text){
