@@ -11,8 +11,11 @@
 				<li>duration: {$item.duration}</li>
 				<li>pid: {$item.pid} ({a_remote action="terminate_backend" token=$item.token _method=post _confirm="Are you sure?"}terminate backend{/a_remote})</li>
 			</ul>
+			<br>
+			<pre><code>{!$item.query|replace:"\t":"  "|h}
+
+</code></pre>
 			<hr>
-			<pre><code>{!$item.query|replace:"\t":"  "|h}</code></pre>
 		</li>
 	{/foreach}
 </ul>

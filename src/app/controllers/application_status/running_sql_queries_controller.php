@@ -24,8 +24,12 @@ class RunningSqlQueriesController extends ApplicationController {
 		$queries = array_values($queries);
 		$query = $queries[0];
 
-		$this->dbmole->doQuery("SELECT PG_TERMINATE_BACKEND(:pid)",[":pid" => $query["pid"]]);
-		$this->flash->success("Process terminated");
+		$status = $this->dbmole->doQuery("SELECT PG_TERMINATE_BACKEND(:pid)",[":pid" => $query["pid"]]);
+		if($status){
+			$this->flash->success("Process terminated");
+		}else{
+			$this->flash->warning("Process was not terminated");
+		}
 		$this->_redirect_to("index");
 	}
 
