@@ -29,7 +29,11 @@ class ApplicationController extends Atk14Controller {
 		}
 
 		if(strlen(APPLICATION_STATUS_AUTH_USERNAME) || strlen(APPLICATION_STATUS_AUTH_PASSWORD)){
-			if($this->request->getBasicAuthString()!==APPLICATION_STATUS_AUTH_USERNAME.":".APPLICATION_STATUS_AUTH_PASSWORD){
+			if(MyBlowfish::IsHash(APPLICATION_STATUS_AUTH_PASSWORD)){
+				if($this->request->getBasicAuthUsername()!==APPLICATION_STATUS_AUTH_USERNAME || !MyBlowfish::CheckPassword($this->request->getBasicAuthPassword(),APPLICATION_STATUS_AUTH_PASSWORD)){
+					return $this->_execute_action("error401");
+				}
+			}elseif($this->request->getBasicAuthString()!==APPLICATION_STATUS_AUTH_USERNAME.":".APPLICATION_STATUS_AUTH_PASSWORD){
 				return $this->_execute_action("error401");
 			}
 		}

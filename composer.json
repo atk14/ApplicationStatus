@@ -13,6 +13,7 @@
         ],
         "require": {
                 "php": ">=5.3.0",
+                "yarri/my-blowfish": "^1.4",
                 "atk14/ip-matcher": "*"
         },
         "require-dev": {

@@ -35,8 +35,18 @@ Set up IP-based authentication or HTTP basic authentication. It's even ok to set
     define("APPLICATION_STATUS_ALLOW_FROM","84.42.130.122,84.42.130.123,84.42.121.123/24");
 
     // HTTP basic authentication
-    define("APPLICATION_STATUS_AUTH_USERNAME","john");
-    define("APPLICATION_STATUS_AUTH_PASSWORD","the_C4ctuss!");
+    define("APPLICATION_STATUS_AUTH_USERNAME","status");
+    define("APPLICATION_STATUS_AUTH_PASSWORD",'$2a$04$fRdoV2rr6IOmf83E5eH83Oqw8yR5k9HtRWvBSd2pOwev6yoDxKX3W');
+
+It is expected that the password is either a blowfish hash or it is set in plain text.
+
+    define("APPLICATION_STATUS_AUTH_PASSWORD","secret");
+
+The blowfish hash can be calculated using the ATK14 console. Because the correct password is compared with the hash in every HTTP request,
+it is a good idea not to generate too complex hash (with too high rounds value).
+    
+    $ echo 'echo MyBlowfish::GetHash("secret","",["rounds" => 4]),"\n";' | ./scripts/console
+    $2a$04$fRdoV2rr6IOmf83E5eH83Oqw8yR5k9HtRWvBSd2pOwev6yoDxKX3W
 
 By default, there is automatic redirection to ssl in production environment.
 It can be suppressed by setting constant APPLICATION_STATUS_REDIRECT_TO_SSL_AUTOMATICALLY to false:
