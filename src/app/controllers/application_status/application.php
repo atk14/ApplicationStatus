@@ -37,6 +37,9 @@ class ApplicationController extends Atk14Controller {
 				return $this->_execute_action("error401");
 			}
 		}
+
+		$this->tpl_data["hostname"] = gethostname();
+		$this->tpl_data["mdash"] = "—";
 	}
 
 	function confinguration_missing(){

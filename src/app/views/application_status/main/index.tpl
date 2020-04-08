@@ -21,3 +21,11 @@
 {else}
 	<pre></code>{!$end_of_error_file}</code></pre>
 {/if}
+
+<h3>System Info</h3>
+
+<ul>
+	<li>Hostname: {$hostname|default:$mdash}</li>
+	<li>Pwuid: {render partial="dump_var" var=$pwuid}</li>
+	<li>Uname: {render partial="dump_var" var=$uname}</li>
+</ul>
