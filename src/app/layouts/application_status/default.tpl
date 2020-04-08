@@ -31,6 +31,9 @@
 						<li class="nav-item{if $controller=="exception_reports"} active{/if}">
 							<a class="nav-link" href="{link_to action="exception_reports/index"}">Exception reports</a>
 						</li>
+						<li class="nav-item{if $controller=="source_code"} active{/if}">
+							<a class="nav-link" href="{link_to action="source_code/index"}">Source code</a>
+						</li>
 					</ul>
 				</div>
 			</div>
