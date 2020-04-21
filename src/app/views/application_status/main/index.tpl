@@ -11,7 +11,7 @@
 {if !$exception_file_exists}
 	<p>Exception log file doesn't exist.</p>
 {else}
-	<pre></code>{!$end_of_exception_file}</code></pre>
+	<pre></code>{!$end_of_exception_file|h}</code></pre>
 {/if}
 
 <h3>Error log file</h3>
@@ -19,7 +19,7 @@
 {if !$error_file_exists}
 	<p>Error log file doesn't exist.</p>
 {else}
-	<pre></code>{!$end_of_error_file}</code></pre>
+	<pre></code>{!$end_of_error_file|h}</code></pre>
 {/if}
 
 <h3>System Info</h3>
