@@ -10,6 +10,10 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<link href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAYAAABPYyMiAAAABmJLR0T///////8JWPfcAAAACXBIWXMAAABIAAAASABGyWs+AAAAF0lEQVRIx2NgGAWjYBSMglEwCkbBSAcACBAAAeaR9cIAAAAASUVORK5CYII=" rel="icon" type="image/x-icon">
 
+		{if $controller=="robots_timeline"}
+		<script src='https://unpkg.com/timelines-chart'></script>
+		{/if}
+
 		<title>{$page_title}</title>
 	</head>
 	<body>
@@ -33,6 +37,9 @@
 						</li>
 						<li class="nav-item{if $controller=="source_code"} active{/if}">
 							<a class="nav-link" href="{link_to action="source_code/index"}">Source code</a>
+						</li>
+						<li class="nav-item{if $controller=="robots_timeline"} active{/if}">
+							<a class="nav-link" href="{link_to action="robots_timeline/index"}">Robots</a>
 						</li>
 					</ul>
 				</div>
