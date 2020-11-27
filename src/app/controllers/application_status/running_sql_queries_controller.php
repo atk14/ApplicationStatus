@@ -3,7 +3,17 @@ class RunningSqlQueriesController extends ApplicationController {
 
 	function index(){
 		$this->page_title = "Running SQL Queries";
-		$this->tpl_data["running_queries"] = $this->_get_running_queries();
+
+		$running_queries = $this->_get_running_queries();
+		$summary = array();
+		foreach($running_queries as $item){
+			$datname = $item["datname"];
+			if(!isset($summary[$datname])){ $summary[$datname] = 0; }
+			$summary[$datname]++;
+		}
+		
+		$this->tpl_data["running_queries"] = $running_queries;
+		$this->tpl_data["summary"] = $summary;
 	}
 
 	function terminate_backend(){

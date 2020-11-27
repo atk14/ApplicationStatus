@@ -2,6 +2,14 @@
 
 <p>Total queries: {$running_queries|count}</p>
 
+{if $summary}
+	<ul>
+		{foreach $summary as $datname => $cnt}
+			<li>{$datname}: {$cnt}</li>
+		{/foreach}
+	</ul>
+{/if}
+
 <ul class="list-unstyled">
 	{foreach $running_queries as $item}
 		<li>
