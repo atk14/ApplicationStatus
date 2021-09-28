@@ -47,7 +47,7 @@ class RunningSqlQueriesController extends ApplicationController {
 		if(!$this->request->post()){ return $this->_execute_action("error404"); }
 
 		$tokens = $this->params->getArray("tokens");
-		if(!$tokens){ return $this->_execute_action("error404"); }
+		// if(!$tokens){ return $this->_execute_action("error404"); }
 
 		$queries = $this->_get_running_queries();
 		$queries = array_filter($queries,function($item) use($tokens){ return in_array($item["token"],$tokens); });
