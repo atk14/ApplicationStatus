@@ -62,7 +62,7 @@ class RunningSqlQueriesController extends ApplicationController {
 		$rows = $this->dbmole->selectRows("
 			SELECT PG_TERMINATE_BACKEND(pid), pid, datname, query_start, AGE(CLOCK_TIMESTAMP(), query_start) AS duration, query
 			FROM pg_stat_activity
-			WHERE query != '<IDLE>' AND query!='<insufficient privilege>' AND query NOT ILIKE '%pg_stat_activity%' AND query LIKE 'UPDATE sessions SET last_access=%'
+			WHERE query != '<IDLE>' AND query!='<insufficient privilege>' AND query NOT ILIKE '%pg_stat_activity%'
 			ORDER BY query_start
 		");
 		foreach($rows as $k => $row){
