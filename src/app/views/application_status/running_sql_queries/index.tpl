@@ -27,3 +27,7 @@
 		</li>
 	{/foreach}
 </ul>
+
+<hr>
+
+<p>{a action="terminate_all_backends" _method=post _confirm="Are you sure?" _class="btn btn-sm btn-danger"}Terminate all backends{/a}</p>

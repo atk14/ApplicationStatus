@@ -34,7 +34,7 @@ class RunningSqlQueriesController extends ApplicationController {
 		$queries = array_values($queries);
 		$query = $queries[0];
 
-		$status = $this->dbmole->doQuery("SELECT PG_TERMINATE_BACKEND(:pid)",[":pid" => $query["pid"]]);
+		$status = $this->_terminate_backed($query["pid"]);
 		if($status){
 			$this->flash->success("Process terminated");
 		}else{
@@ -43,11 +43,26 @@ class RunningSqlQueriesController extends ApplicationController {
 		$this->_redirect_to("index");
 	}
 
+	function terminate_all_backends(){
+		if(!$this->request->post()){ return $this->_execute_action("error404"); }
+
+		$queries = $this->_get_running_queries();
+		$terminated = 0;
+		foreach($queries as $query){
+			if($this->_terminate_backed($query["pid"])){
+				$terminated++;
+			}
+		}
+
+		$this->flash->success(sprintf("Backends terminated: %d",$terminated));
+		$this->_redirect_to("index");
+	}
+
 	function _get_running_queries(){
 		$rows = $this->dbmole->selectRows("
-			SELECT pid, datname, query_start, AGE(CLOCK_TIMESTAMP(), query_start) AS duration, query
+			SELECT PG_TERMINATE_BACKEND(pid), pid, datname, query_start, AGE(CLOCK_TIMESTAMP(), query_start) AS duration, query
 			FROM pg_stat_activity
-			WHERE query != '<IDLE>' AND query!='<insufficient privilege>' AND query NOT ILIKE '%pg_stat_activity%'
+			WHERE query != '<IDLE>' AND query!='<insufficient privilege>' AND query NOT ILIKE '%pg_stat_activity%' AND query LIKE 'UPDATE sessions SET last_access=%'
 			ORDER BY query_start
 		");
 		foreach($rows as $k => $row){
@@ -55,5 +70,9 @@ class RunningSqlQueriesController extends ApplicationController {
 			$rows[$k]["token"] = $row["pid"].".".md5(serialize($row));
 		}
 		return $rows;
+	}
+
+	function _terminate_backed($pid){
+		return $this->dbmole->doQuery("SELECT PG_TERMINATE_BACKEND(:pid)",[":pid" => $pid]);
 	}
 }
