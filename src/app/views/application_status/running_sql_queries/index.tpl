@@ -18,10 +18,11 @@
 				<li>database: {$item.datname}</li>
 				<li>started: {$item.query_start}</li>
 				<li>duration: {$item.duration}</li>
+				<li>state: {$item.state}</li>
 				<li>pid: {$item.pid} ({a_remote action="terminate_backend" token=$item.token _method=post _confirm="Are you sure?"}terminate backend{/a_remote})</li>
 			</ul>
 			<br>
-			<input type="checkbox" name="tokens[]" value="{$item.token}" checked="checked">
+			<input type="checkbox" name="tokens[]" value="{$item.token}"{if $item.state=="active"} checked="checked"{/if}>
 			<pre><code>{!$item.query|replace:"\t":"  "|h}
 
 </code></pre>

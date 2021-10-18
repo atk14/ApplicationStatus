@@ -66,10 +66,10 @@ class RunningSqlQueriesController extends ApplicationController {
 
 	function _get_running_queries(){
 		$rows = $this->dbmole->selectRows("
-			SELECT pid, datname, query_start, AGE(CLOCK_TIMESTAMP(), query_start) AS duration, query
+			SELECT pid, datname, query_start, AGE(CLOCK_TIMESTAMP(), query_start) AS duration, query, state
 			FROM pg_stat_activity
 			WHERE query != '<IDLE>' AND query!='<insufficient privilege>' AND query NOT ILIKE '%pg_stat_activity%'
-			ORDER BY query_start
+			ORDER BY state='active' DESC, query_start
 		");
 		foreach($rows as $k => $row){
 			unset($row["duration"]);
