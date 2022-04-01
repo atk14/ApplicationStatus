@@ -2,6 +2,10 @@
 
 All notable changes to ApplicationStatus will be documented in this file.
 
+## [0.3.3] - 2022-04-01
+
+* a5d6a28 - Uptime displayed at the homepage
+
 ## [0.3.2] - 2021-11-17
 
 * 767dcf6 - Better detection of truly running SQL queries
