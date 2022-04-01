@@ -6,6 +6,18 @@
 	{$server_load.0}, {$server_load.1}, {$server_load.2}
 </p>
 
+<h3>Uptime</h3>
+
+<p>
+{if $uptime}
+	{if $uptime.days}{$uptime.days} days,{/if}
+	{if $uptime.hours || $uptime.days}{$uptime.hours} hours,{/if}
+	{$uptime.mins} mins, {$uptime.secs} secs
+{else}
+	<em>unknown</em>
+{/if}
+</p>
+
 <h3>Exception log file</h3>
 
 {if !$exception_file_exists}
