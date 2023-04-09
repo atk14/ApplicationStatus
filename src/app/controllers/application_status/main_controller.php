@@ -65,7 +65,7 @@ class MainController extends ApplicationController {
 		$str = @file_get_contents("/proc/uptime");
 		if(!$str){ return null; }
 
-		$num = floatval($str);
+		$num = round(floatval($str));
 		$secs = ceil(fmod($num, 60));
 
 		$num = intdiv($num, 60);
