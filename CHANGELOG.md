@@ -2,6 +2,10 @@
 
 All notable changes to ApplicationStatus will be documented in this file.
 
+## [0.3.4] - 2023-04-09
+
+* bde0240 - Uptime is rounded (minor fix)
+
 ## [0.3.3] - 2022-04-01
 
 * a5d6a28 - Uptime displayed at the homepage
