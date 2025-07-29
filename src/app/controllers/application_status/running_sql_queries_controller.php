@@ -13,6 +13,8 @@ class RunningSqlQueriesController extends ApplicationController {
 			if(!isset($summary[$datname])){ $summary[$datname] = 0; }
 			$summary[$datname]++;
 		}
+
+		$running_queries = array_filter($running_queries,function($item){ return $item["visible"]=="t"; });
 		
 		$this->tpl_data["running_queries"] = $running_queries;
 		$this->tpl_data["summary"] = $summary;
@@ -68,15 +70,17 @@ class RunningSqlQueriesController extends ApplicationController {
 
 	function _get_running_queries($search = ""){
 		$bind_ar = [];
-		$q_search = "";
+		$visible = "TRUE";
 		if($search){
-			$q_search = " AND query LIKE '%'||:search||'%'";
+			$visible = "query LIKE '%'||:search||'%'";
 			$bind_ar[":search"] = $search;
 		}
 		$rows = $this->dbmole->selectRows("
-			SELECT pid, datname, query_start, AGE(CLOCK_TIMESTAMP(), query_start) AS duration, query, state
+			SELECT
+				pid,datname, query_start, AGE(CLOCK_TIMESTAMP(), query_start) AS duration, query, state,
+				$visible AS visible
 			FROM pg_stat_activity
-			WHERE query != '<IDLE>' AND query!='<insufficient privilege>' AND query NOT ILIKE '%pg_stat_activity%'$q_search
+			WHERE query != '<IDLE>' AND query!='<insufficient privilege>' AND query NOT ILIKE '%pg_stat_activity%'
 			ORDER BY state='active' DESC, query_start
 		",$bind_ar);
 		foreach($rows as $k => $row){
