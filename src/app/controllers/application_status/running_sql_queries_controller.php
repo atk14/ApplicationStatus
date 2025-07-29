@@ -4,7 +4,9 @@ class RunningSqlQueriesController extends ApplicationController {
 	function index(){
 		$this->page_title = "Running SQL Queries";
 
-		$running_queries = $this->_get_running_queries();
+		($d = $this->form->validate($this->params)) || ($d = $this->form->get_initial());
+
+		$running_queries = $this->_get_running_queries($d["search"]);
 		$summary = array();
 		foreach($running_queries as $item){
 			$datname = $item["datname"];
@@ -64,13 +66,19 @@ class RunningSqlQueriesController extends ApplicationController {
 		$this->_redirect_to("index");
 	}
 
-	function _get_running_queries(){
+	function _get_running_queries($search = ""){
+		$bind_ar = [];
+		$q_search = "";
+		if($search){
+			$q_search = " AND query LIKE '%'||:search||'%'";
+			$bind_ar[":search"] = $search;
+		}
 		$rows = $this->dbmole->selectRows("
 			SELECT pid, datname, query_start, AGE(CLOCK_TIMESTAMP(), query_start) AS duration, query, state
 			FROM pg_stat_activity
-			WHERE query != '<IDLE>' AND query!='<insufficient privilege>' AND query NOT ILIKE '%pg_stat_activity%'
+			WHERE query != '<IDLE>' AND query!='<insufficient privilege>' AND query NOT ILIKE '%pg_stat_activity%'$q_search
 			ORDER BY state='active' DESC, query_start
-		");
+		",$bind_ar);
 		foreach($rows as $k => $row){
 			unset($row["duration"]);
 			$rows[$k]["token"] = $row["pid"].".".md5(serialize($row));

@@ -18,6 +18,7 @@ Installation
 
     ln -s ../../vendor/atk14/application-status/src/app/controllers/application_status/ app/controllers/application_status
     ln -s ../../vendor/atk14/application-status/src/app/views/application_status/ app/views/application_status
+    ln -s ../../vendor/atk14/application-status/src/app/forms/application_status/ app/forms/application_status
     ln -s ../../vendor/atk14/application-status/src/app/layouts/application_status/ app/layouts/application_status
 
 After deployment to the production, the Application Status will be accessible on address:
