@@ -2,6 +2,10 @@
 
 All notable changes to ApplicationStatus will be documented in this file.
 
+## [0.3.5] - 2025-08-04
+
+* 9b1d8f5 - Running SQL Queries can be filtered by a search query
+
 ## [0.3.4] - 2023-04-09
 
 * bde0240 - Uptime is rounded (minor fix)
